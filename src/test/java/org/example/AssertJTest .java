@@ -6,12 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-
-import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 class AssertJTest {
 
@@ -28,7 +24,7 @@ class AssertJTest {
 
     @Test
     @DisplayName("Exercice 2")
-    void testObjetReferenceEquals() throws CloneNotSupportedException {
+    void testObjetReferenceEquals() {
         Book book1 = new Book(11, "Harry Potter 1");
         Book book2 = book1;
         Book book3 = new Book(33, "Harry Potter 3");
@@ -96,7 +92,6 @@ class AssertJTest {
     @DisplayName("Exercice 5")
     void testCheckMapKeys() {
         Map.Entry<Integer, String> entry1 = new AbstractMap.SimpleEntry<>(1, "one");
-        Map.Entry<Integer, String> entry2 = new AbstractMap.SimpleEntry<>(2, "two");
         Map<Integer, String> map = new HashMap<>();
         map.put(entry1.getKey(), entry1.getValue());
 
@@ -106,7 +101,9 @@ class AssertJTest {
     @Test
     @DisplayName("Exercice 6")
     public void testArrayIndexOutOfBoundsException() {
-
+        int[] numbers = new int[10];
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+                .isThrownBy(() -> ArrayErrors.getArrayIndexArrayIndexOutOfBoundsException(numbers,11));
     }
 
     @Test
