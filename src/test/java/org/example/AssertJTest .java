@@ -17,9 +17,9 @@ class AssertJTest {
 
     @Test
     @DisplayName("Exercice 1")
-    void testObjetEquals() {
+    void testObjetEquals() throws CloneNotSupportedException {
         Book book1 = new Book(11, "Harry Potter 1");
-        Book book2 = new Book(11, "Harry Potter 1");
+        Book book2 = (Book) book1.clone();
         Book book3 = new Book(22, "Harry Potter 2");
 
         assertThat(book1).isEqualTo(book2);
@@ -28,13 +28,13 @@ class AssertJTest {
 
     @Test
     @DisplayName("Exercice 2")
-    void testObjetReferenceEquals() {
+    void testObjetReferenceEquals() throws CloneNotSupportedException {
         Book book1 = new Book(11, "Harry Potter 1");
-        Book book2 = new Book(11, "Harry Potter 1");
-        Book book3 = new Book(22, "Harry Potter 2");
+        Book book2 = book1;
+        Book book3 = new Book(33, "Harry Potter 3");
 
-        assertThat(book1).isEqualTo(book2);
-        assertThat(book2).isNotEqualTo(book3);
+        assertThat(book1).isSameAs(book2);
+        assertThat(book2).isNotSameAs(book3);
     }
 
     @Test
@@ -58,7 +58,7 @@ class AssertJTest {
         list1.add(obj2);
         list1.add(obj3);
 
-        assertThat(list1).containsExactly(obj1, obj2, obj3);
+        assertThat(list1).containsExactlyInAnyOrder(obj1, obj2, obj3);
     }
 
     @Test
@@ -73,7 +73,7 @@ class AssertJTest {
         list1.add(obj2);
         list1.add(obj3);
 
-        assertThat(list1).containsExactlyInAnyOrder(obj1, obj3, obj2);
+        assertThat(list1).containsExactly(obj1, obj3, obj2);
     }
 
     @Test
